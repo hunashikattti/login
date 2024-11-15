@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html ng-app="loginApp">
+<head>
+    <title>Login Form</title>
+    <script src="angular.min.js"></script>
+</head>
+<body>
+    <div ng-controller="LoginController as loginCtrl">
+        <h2>Login Form</h2>
+        <form name="loginForm" ng-submit="loginCtrl.login()" novalidate>
+            <div>
+                <label>Username:</label>
+                <input type="text" ng-model="loginCtrl.username" name="username" required>
+                <span class="error" ng-show="loginForm.username.$touched && loginForm.username.$invalid">Username is required.</span>
+            </div>
+            <div>
+                <label>Password:</label>
+                <input type="password" ng-model="loginCtrl.password" name="password" required>
+                <span class="error" ng-show="loginForm.password.$touched && loginForm.password.$invalid">Password is required.</span>
+            </div>
+            <button type="submit" ng-disabled="loginForm.$invalid">Login</button>
+        </form>
+        <div ng-if="loginCtrl.loggedIn">
+            <p>Welcome, {{ loginCtrl.username }}!</p>
+        </div>
+    </div>
+    <script>
+        angular.module('loginApp', [])
+        .controller('LoginController', function() {
+            var a = this;
+            a.loggedIn = false;
+            a.login = function() {
+                if (a.username === 'appu' && a.password === '100') {
+                    a.loggedIn = true;
+                } else {
+                    alert('Invalid username or password.');
+                }
+            };
+        });
+    </script>
+</body>
+</html>
